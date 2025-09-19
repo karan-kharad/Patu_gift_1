@@ -1,0 +1,451 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #667eea, #764ba2, #f093fb);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.container {
+    text-align: center;
+    z-index: 10;
+}
+
+.heart-container {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 40px;
+}
+
+/* Bits animation around the heart */
+.heart-container::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300px;
+    height: 300px;
+    transform: translate(-50%, -50%);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    animation: rotate 20s linear infinite;
+}
+
+.heart-container::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 250px;
+    height: 250px;
+    transform: translate(-50%, -50%);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    animation: rotate 15s linear infinite reverse;
+}
+
+/* Floating bits around the heart */
+.bits {
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    animation: floatAround 8s ease-in-out infinite;
+}
+
+.bit-1 {
+    top: 20%;
+    left: 10%;
+    animation-delay: 0s;
+}
+
+.bit-2 {
+    top: 10%;
+    right: 20%;
+    animation-delay: 1s;
+}
+
+.bit-3 {
+    bottom: 15%;
+    left: 15%;
+    animation-delay: 2s;
+}
+
+.bit-4 {
+    bottom: 25%;
+    right: 10%;
+    animation-delay: 3s;
+}
+
+.bit-5 {
+    top: 50%;
+    left: 5%;
+    animation-delay: 4s;
+}
+
+.bit-6 {
+    top: 50%;
+    right: 5%;
+    animation-delay: 5s;
+}
+
+.heart {
+    font-size: 120px;
+    animation: heartbeat 1.2s ease-in-out infinite, heartGlow 2s ease-in-out infinite, heartFloat 3s ease-in-out infinite;
+    filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.8));
+    transition: all 0.3s ease;
+    transform-origin: center;
+}
+
+.heart:hover {
+    animation-play-state: paused;
+    transform: scale(1.15);
+    filter: drop-shadow(0 0 30px rgba(255, 255, 255, 1));
+}
+
+.glow-effect {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: glow 2s ease-in-out infinite alternate, glowPulse 1.5s ease-in-out infinite;
+    pointer-events: none;
+}
+
+.heartbeat-btn {
+    background: linear-gradient(45deg, #ff4757, #ff6b6b);
+    border: none;
+    padding: 15px 30px;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 8px 25px rgba(255, 71, 87, 0.4);
+    transition: all 0.3s ease;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.heartbeat-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 35px rgba(255, 71, 87, 0.6);
+    background: linear-gradient(45deg, #ff3838, #ff5252);
+}
+
+.heartbeat-btn:active {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(255, 71, 87, 0.4);
+}
+
+.message {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s ease;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.message.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.message p {
+    font-size: 24px;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    line-height: 1.6;
+    font-weight: 300;
+    letter-spacing: 1px;
+}
+
+.name {
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+    animation: nameGlow 2s ease-in-out infinite alternate;
+}
+
+/* Animations */
+@keyframes heartbeat {
+    0% {
+        transform: scale(1);
+    }
+
+    25% {
+        transform: scale(1.08);
+    }
+
+    50% {
+        transform: scale(1.15);
+    }
+
+    75% {
+        transform: scale(1.08);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+@keyframes heartGlow {
+    0% {
+        filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.8));
+    }
+
+    50% {
+        filter: drop-shadow(0 0 35px rgba(255, 255, 255, 1)) drop-shadow(0 0 50px rgba(255, 182, 193, 0.6));
+    }
+
+    100% {
+        filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.8));
+    }
+}
+
+@keyframes heartFloat {
+
+    0%,
+    100% {
+        transform: translateY(0px) rotate(0deg);
+    }
+
+    25% {
+        transform: translateY(-3px) rotate(0.5deg);
+    }
+
+    50% {
+        transform: translateY(-5px) rotate(0deg);
+    }
+
+    75% {
+        transform: translateY(-2px) rotate(-0.5deg);
+    }
+}
+
+@keyframes glowPulse {
+    0% {
+        opacity: 0.3;
+        transform: translate(-50%, -50%) scale(0.9);
+    }
+
+    50% {
+        opacity: 0.6;
+        transform: translate(-50%, -50%) scale(1.1);
+    }
+
+    100% {
+        opacity: 0.3;
+        transform: translate(-50%, -50%) scale(0.9);
+    }
+}
+
+@keyframes glow {
+    0% {
+        opacity: 0.3;
+        transform: translate(-50%, -50%) scale(0.8);
+    }
+
+    100% {
+        opacity: 0.7;
+        transform: translate(-50%, -50%) scale(1.2);
+    }
+}
+
+@keyframes nameGlow {
+    0% {
+        text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+    }
+
+    100% {
+        text-shadow: 0 0 20px rgba(255, 255, 255, 1), 0 0 30px rgba(255, 255, 255, 0.8);
+    }
+}
+
+@keyframes rotate {
+    0% {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+
+    100% {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+@keyframes floatAround {
+
+    0%,
+    100% {
+        transform: translateY(0px) scale(1);
+        opacity: 0.8;
+    }
+
+    25% {
+        transform: translateY(-20px) scale(1.2);
+        opacity: 1;
+    }
+
+    50% {
+        transform: translateY(-10px) scale(0.8);
+        opacity: 0.6;
+    }
+
+    75% {
+        transform: translateY(-30px) scale(1.1);
+        opacity: 0.9;
+    }
+}
+
+/* Background particles effect */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+        radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+    animation: backgroundFloat 10s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes backgroundFloat {
+
+    0%,
+    100% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .heart {
+        font-size: 80px;
+    }
+
+    .glow-effect {
+        width: 150px;
+        height: 150px;
+    }
+
+    .message p {
+        font-size: 18px;
+        padding: 0 20px;
+    }
+
+    .heartbeat-btn {
+        padding: 12px 24px;
+        font-size: 16px;
+        margin-bottom: 20px;
+    }
+
+    /* Adjust bits for mobile */
+    .heart-container::before {
+        width: 250px;
+        height: 250px;
+    }
+
+    .heart-container::after {
+        width: 200px;
+        height: 200px;
+    }
+
+    .bits {
+        width: 4px;
+        height: 4px;
+    }
+
+    .container {
+        padding: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .heart {
+        font-size: 60px;
+    }
+
+    .glow-effect {
+        width: 120px;
+        height: 120px;
+    }
+
+    .message p {
+        font-size: 16px;
+        line-height: 1.4;
+    }
+
+    .heartbeat-btn {
+        padding: 10px 20px;
+        font-size: 14px;
+        width: 100%;
+        max-width: 280px;
+    }
+
+    /* Further adjust bits for small mobile */
+    .heart-container::before {
+        width: 200px;
+        height: 200px;
+    }
+
+    .heart-container::after {
+        width: 160px;
+        height: 160px;
+    }
+
+    .bits {
+        width: 3px;
+        height: 3px;
+    }
+
+    .bit-1,
+    .bit-2,
+    .bit-3,
+    .bit-4,
+    .bit-5,
+    .bit-6 {
+        animation-duration: 6s;
+    }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+    .heart:hover {
+        animation: heartbeat 1.2s ease-in-out infinite, heartGlow 2s ease-in-out infinite, heartFloat 3s ease-in-out infinite;
+        transform: none;
+        filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.8));
+    }
+
+    .heartbeat-btn:hover {
+        transform: none;
+        box-shadow: 0 8px 25px rgba(255, 71, 87, 0.4);
+        background: linear-gradient(45deg, #ff4757, #ff6b6b);
+    }
+
+    .heartbeat-btn:active {
+        transform: scale(0.98);
+        box-shadow: 0 4px 15px rgba(255, 71, 87, 0.4);
+    }
+}
